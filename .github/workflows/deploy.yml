@@ -15,10 +15,10 @@ jobs:
       - run: npm ci
       - run: npm run build
 
-      - run: touch docs/.nojekyll
+      - run: touch dist/.nojekyll
       - name: Deploy to Pages 🚀
         uses: JamesIves/github-pages-deploy-action@releases/v4
         with:
-          folder: docs
+          folder: dist
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: gh-pages
