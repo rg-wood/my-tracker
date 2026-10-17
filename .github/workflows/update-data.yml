@@ -20,6 +20,7 @@ jobs:
           node-version: 25
 
       - name: Restore Notes Backup
+        continue-on-error: true
         uses: actions/download-artifact@v5
         with:
           name: notes-backup
@@ -27,11 +28,11 @@ jobs:
       - run: npm ci
       - run: npm run update:data
 
-      - name: "Backup Notes"
+      - name: Backup Notes
         uses: actions/upload-artifact@v4
         with:
           name: notes-backup
-          path: temp/vault
+          path: tmp/vault
           retention-days: 5
 
       - uses: stefanzweifel/git-auto-commit-action@v7
