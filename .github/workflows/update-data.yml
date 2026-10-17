@@ -19,7 +19,7 @@ jobs:
         with:
           node-version: 25
 
-      - run: echo ${{ OBSIDIAN_AUTH_TOKEN }} > $HOME/.obsidian-headless/auth_token
+      - run: echo ${{ secrets.OBSIDIAN_AUTH_TOKEN }} > $HOME/.obsidian-headless/auth_token
       - run: npm ci
       - run: npm run update:data
 
