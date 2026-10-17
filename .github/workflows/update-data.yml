@@ -9,13 +9,13 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    env:
+      OBSIDIAN_PASSWORD: ${{ secrets.OBSIDIAN_PASSWORD }}
 
     steps:
       - uses: actions/checkout@v7
 
       - uses: actions/setup-node@v7
-        env:
-          OBSIDIAN_PASSWORD: ${{ secrets.OBSIDIAN_PASSWORD }}
         with:
           node-version: 25
 
