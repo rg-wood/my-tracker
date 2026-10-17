@@ -2,8 +2,8 @@ import HeatMap from '@uiw/react-heat-map';
 import notes from '../data/notes.json';
 import './App.css'
 
-function App() {
-  const startDate = new Date(Date.now())
+function App({ today }: { today: Date }) {
+  const startDate = new Date(today)
   startDate.setMonth(startDate.getMonth() - 3)
 
   return (
@@ -14,7 +14,7 @@ function App() {
           <HeatMap
             value={notes}
             weekLabels={['', 'Mon', '', 'Wed', '', 'Fri', '']}
-            startDate={startDate}
+            startDate={ startDate }
           />
         </div>
       </section>
