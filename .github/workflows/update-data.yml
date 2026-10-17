@@ -1,0 +1,29 @@
+name: Update Data
+
+on:
+  push:
+    branches:
+      - "**"
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        env:
+          OBSIDIAN_AUTH_TOKEN: ${{ secrets.OBSIDIAN_AUTH_TOKEN }}
+        with:
+          node-version: 25
+
+      - run: echo ${{ OBSIDIAN_AUTH_TOKEN }} > $HOME/.obsidian-headless/auth_token
+      - run: npm ci
+      - run: npm run update:data
+
+      - uses: stefanzweifel/git-auto-commit-action@v7
+        with:
+          commit_message: "Chore: updated data for today"
