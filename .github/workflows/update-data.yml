@@ -15,12 +15,10 @@ jobs:
 
       - uses: actions/setup-node@v7
         env:
-          OBSIDIAN_AUTH_TOKEN: ${{ secrets.OBSIDIAN_AUTH_TOKEN }}
+          OBSIDIAN_PASSWORD: ${{ secrets.OBSIDIAN_PASSWORD }}
         with:
           node-version: 25
 
-      - run: mkdir $HOME/.obsidian-headless
-      - run: echo ${{ secrets.OBSIDIAN_AUTH_TOKEN }} > $HOME/.obsidian-headless/auth_token
       - run: npm ci
       - run: npm run update:data
 
