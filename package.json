@@ -10,7 +10,7 @@
     "test": "oxlint",
     "update:data": "npm run update:data:collect && npm run update:data:notes",
     "update:data:collect": "npm run update:data:notes:collect",
-    "update:data:notes:collect": "ob login --email=ricardo@gladwell.me --password $OBSIDIAN_PASSWORD && ob sync-setup --vault 'Notes' --path ./tmp/vault --password $OBSIDIAN_PASSWORD && ob sync --path ./tmp/vault",
+    "update:data:notes:collect": "ob login --email ricardo@gladwell.me --password $OBSIDIAN_PASSWORD && ob sync-setup --vault 'Notes' --path ./tmp/vault --password $OBSIDIAN_PASSWORD && ob sync --path ./tmp/vault",
     "update:data:notes": "node ./bin/update-notes.js './tmp/vault/🪶 Fleeting' ./data/notes.json"
   },
   "dependencies": {
