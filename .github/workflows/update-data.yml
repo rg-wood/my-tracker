@@ -19,8 +19,20 @@ jobs:
         with:
           node-version: 25
 
+      - name: Restore Notes Backup
+        uses: actions/download-artifact@v5
+        with:
+          name: notes-backup
+
       - run: npm ci
       - run: npm run update:data
+
+      - name: "Backup Notes"
+        uses: actions/upload-artifact@v4
+        with:
+          name: notes-backup
+          path: temp/vault
+          retention-days: 5
 
       - uses: stefanzweifel/git-auto-commit-action@v7
         with:
