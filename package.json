@@ -7,7 +7,10 @@
     "start": "vite",
     "start:preview": "vite preview",
     "build": "tsc -b && vite build",
-    "lint": "oxlint"
+    "lint": "oxlint",
+    "collect:data": "npm run collect:data:notes",
+    "collect:data:notes": "ob sync --path ./tmp/vault && npm run collect:data:notes:update ",
+    "collect:data:notes:update": "node ./bin/update-notes.js './tmp/vault/🪶 Fleeting' ./data/notes.json"
   },
   "dependencies": {
     "react": "^19.3.1",
@@ -19,11 +22,13 @@
     "@types/react-dom": "^19.3.0",
     "@uiw/react-heat-map": "^2.3.4",
     "@vitejs/plugin-react": "^6.1.2",
+    "obsidian-headless": "^0.0.14",
     "oxlint": "^1.88.0",
     "typescript": "~7.0.2",
     "vite": "^8.3.4"
   },
   "allowScripts": {
-    "fsevents": false
+    "fsevents": false,
+    "better-sqlite3": false
   }
 }

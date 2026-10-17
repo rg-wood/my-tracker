@@ -1,29 +1,20 @@
 import HeatMap from '@uiw/react-heat-map';
+import notes from '../data/notes.json';
 import './App.css'
 
-const value = [
-  { date: '2016/01/11', count: 2 },
-  { date: '2016/01/12', count: 20 },
-  { date: '2016/01/13', count: 10 },
-  ...[...Array(17)].map((_, idx) => ({
-    date: `2016/02/${idx + 10}`, count: idx, content: ''
-  })),
-  { date: '2016/04/11', count: 2 },
-  { date: '2016/05/01', count: 5 },
-  { date: '2016/05/02', count: 5 },
-  { date: '2016/05/04', count: 11 },
-];
-
 function App() {
+  const startDate = new Date(Date.now())
+  startDate.setMonth(startDate.getMonth() - 3)
+
   return (
     <>
       <section id="center">
-        <h1>To Read</h1>
+        <h1>Notes</h1>
         <div>
           <HeatMap
-            value={value}
+            value={notes}
             weekLabels={['', 'Mon', '', 'Wed', '', 'Fri', '']}
-            startDate={new Date('2016/01/01')}
+            startDate={startDate}
           />
         </div>
       </section>
