@@ -1,9 +1,8 @@
 name: Update Data
 
 on:
-  push:
-    branches:
-      - "**"
+  pull_request:
+    branches: [main]
 
 jobs:
   update:
