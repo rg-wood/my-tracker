@@ -35,4 +35,7 @@ if (previousDay) {
   data.set(formatDate(today), newEntry)
 }
 
+console.log("Added new daily record:")
+console.log(data.get(formatDate(today)))
+
 writeFileSync(dataFile, JSON.stringify(Array.from(data.values()), null, 2))
