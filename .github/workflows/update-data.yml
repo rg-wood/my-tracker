@@ -1,8 +1,10 @@
 name: "Update Data"
 
 on:
-  schedule:
-    - cron: "30 11 * * *"
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
 
 jobs:
   update:
@@ -12,6 +14,7 @@ jobs:
     env:
       OBSIDIAN_PASSWORD: ${{ secrets.OBSIDIAN_PASSWORD }}
       OBSIDIAN_EMAIL: ${{ secrets.OBSIDIAN_EMAIL }}
+      REAL_NAME: ${{ secrest.REAL_NAME }}
 
     steps:
       - uses: actions/checkout@v7
@@ -26,6 +29,7 @@ jobs:
           path: tmp/vault
           key: notes-backup
 
+      - run: echo "::add-mask::$REAL_NAME"
       - run: npm ci
 
       - name: Update notes
