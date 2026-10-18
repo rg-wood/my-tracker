@@ -13,7 +13,7 @@
     "update:data:notes:collect": "ob login --email $OBSIDIAN_EMAIL --password $OBSIDIAN_PASSWORD && ob sync-setup --vault 'Notes' --path ./tmp/vault --password $OBSIDIAN_PASSWORD && ob sync --path ./tmp/vault > /dev/null",
     "update:data:notes:update": "node ./bin/update-notes.js './tmp/vault/🪶 Fleeting' ./data/notes.json",
     "update:data:tasks": "npm run update:data:tasks:collect && npm run update:data:tasks:update",
-    "update:data:tasks:collect": "td auth token $TODOOIST_AUTH_TOKEN; timestamp=$(date \"+%Y-%m-%d \") && td activity --since $timestamp | grep completed | grep task | wc -l >> tmp/tasks-completed",
+    "update:data:tasks:collect": "td auth token $TODOOIST_AUTH_TOKEN; timestamp=$(date \"+%Y-%m-%d \") && td activity --since $timestamp | grep completed | grep task | wc -l > tmp/tasks-completed",
     "update:data:tasks:update": "node ./bin/update-tasks.js tmp/tasks-completed ./data/tasks.json"
   },
   "dependencies": {
