@@ -1,7 +1,7 @@
 {
   "name": "my-tracker",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
   "scripts": {
     "start": "vite",
@@ -35,6 +35,7 @@
   },
   "allowScripts": {
     "fsevents": false,
-    "better-sqlite3": false
+    "better-sqlite3": false,
+    "@doist/todoist-cli@5.5.2": true
   }
 }
