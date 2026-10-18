@@ -1,8 +1,10 @@
 name: "Update Data"
 
 on:
-  schedule:
-    - cron: "30 11 * * *"
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
 
 jobs:
   update:
@@ -32,4 +34,4 @@ jobs:
 
       - uses: stefanzweifel/git-auto-commit-action@v7
         with:
-          commit_message: "Chore: updated data for today"
+          commit_message: "Chore: updated data"

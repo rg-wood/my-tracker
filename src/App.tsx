@@ -2,6 +2,7 @@ import HeatMap from '@uiw/react-heat-map';
 import { useEffect, useState } from 'react';
 import './App.css'
 import notes from '../data/notes.json';
+import tasks from '../data/tasks.json';
 
 function App({ today }: { today: Date }) {
   const startDate = new Date(today)
@@ -26,6 +27,18 @@ function App({ today }: { today: Date }) {
         <div>
           <HeatMap
             value={ notes }
+            weekLabels={ ['', 'Mon', '', 'Wed', '', 'Fri', ''] }
+            startDate={ startDate }
+            style = { darkMode ? { color: "#ffffff" } : {} }
+
+          />
+        </div>
+      </section>
+      <section id="center">
+        <h1>Tasks</h1>
+        <div>
+          <HeatMap
+            value={ tasks }
             weekLabels={ ['', 'Mon', '', 'Wed', '', 'Fri', ''] }
             startDate={ startDate }
             style = { darkMode ? { color: "#ffffff" } : {} }
