@@ -27,9 +27,13 @@ jobs:
           key: notes-backup
 
       - run: npm ci
-      - run: npm run update:data
-      - run: git status
+
+      - name: Update notes
+        run: npm run update:data:notes
+
+      - name: Update tasks
+        run: npm run update:data:tasks
 
       - uses: stefanzweifel/git-auto-commit-action@v7
         with:
-          commit_message: "Chore: updated data for today"
+          commit_message: "Chore: updated data"
