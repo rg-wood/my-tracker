@@ -14,7 +14,7 @@ jobs:
     env:
       OBSIDIAN_PASSWORD: ${{ secrets.OBSIDIAN_PASSWORD }}
       OBSIDIAN_EMAIL: ${{ secrets.OBSIDIAN_EMAIL }}
-      REAL_NAME: ${{ secrest.REAL_NAME }}
+      REAL_NAME: ${{ secrets.REAL_NAME }}
 
     steps:
       - uses: actions/checkout@v7
