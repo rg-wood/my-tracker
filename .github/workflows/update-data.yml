@@ -12,6 +12,7 @@ jobs:
     env:
       OBSIDIAN_PASSWORD: ${{ secrets.OBSIDIAN_PASSWORD }}
       OBSIDIAN_EMAIL: ${{ secrets.OBSIDIAN_EMAIL }}
+      REAL_NAME: ${{ secrets.REAL_NAME }}
 
     steps:
       - uses: actions/checkout@v7
@@ -26,6 +27,7 @@ jobs:
           path: tmp/vault
           key: notes-backup
 
+      - run: echo "::add-mask::$REAL_NAME"
       - run: npm ci
 
       - name: Update notes
