@@ -1,0 +1,35 @@
+name: "Update Data"
+
+on:
+  schedule:
+    - cron: "30 11 * * *"
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      OBSIDIAN_PASSWORD: ${{ secrets.OBSIDIAN_PASSWORD }}
+      OBSIDIAN_EMAIL: ${{ secrets.OBSIDIAN_EMAIL }}
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 25
+
+      - name: Cache notes
+        uses: actions/cache@v6
+        with:
+          path: tmp/vault
+          key: notes-backup
+
+      - run: npm ci
+      - run: npm run update:data
+      - run: git status
+
+      - uses: stefanzweifel/git-auto-commit-action@v7
+        with:
+          commit_message: "Chore: updated data for today"
