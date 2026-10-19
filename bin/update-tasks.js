@@ -22,18 +22,9 @@ const data = new Map(rawData.map(i => [i.date, i]))
 const tasks = parseInt(readFileSync(tasksCompletedFile))
 
 const today = new Date(Date.now())
-const yesterday = new Date(new Date(Date.now()).setDate(today.getDate() - 1))
 
-const previousDay = data.get(formatDate(yesterday))
-
-if (previousDay) {
-  const count = Math.abs(previousDay.total - tasks)
-  const newEntry = { date: formatDate(today), count: count, total: tasks }
-  data.set(formatDate(today), newEntry)
-} else {
-  const newEntry = { date: formatDate(today), count: tasks, total: tasks }
-  data.set(formatDate(today), newEntry)
-}
+const newEntry = { date: formatDate(today), count: tasks }
+data.set(formatDate(today), newEntry)
 
 console.log("Added new daily tasks record:")
 console.log(data.get(formatDate(today)))
