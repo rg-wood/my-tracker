@@ -40,8 +40,3 @@ jobs:
       - uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: "Chore: updated data"
-
-  call-reusable-workflow:
-    permissions:
-      contents: write
-    uses: ./.github/workflows/deploy.yml
