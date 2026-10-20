@@ -41,5 +41,7 @@ jobs:
         with:
           commit_message: "Chore: updated data"
 
-      - name: Trigger deploy
-        uses: ./.github/workflows/deploy.yml
+  call-reusable-workflow:
+    permissions:
+      contents: write
+    uses: ./.github/workflows/deploy.yml
