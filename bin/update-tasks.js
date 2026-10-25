@@ -24,7 +24,7 @@ const tasks = parseInt(readFileSync(tasksCompletedFile))
 console.log(`${tasks} completed tasks found for ${today.toUTCString()}.`)
 
 if (tasks > 0) {
-  const newEntry = { date: formatDate(today), count: tasks }
+  const newEntry = { date: formatDate(today), count: tasks - 1 }
   data.push(newEntry)
 
   console.log("Added new daily tasks record:")

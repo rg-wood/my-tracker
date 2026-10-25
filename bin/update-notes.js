@@ -26,7 +26,7 @@ const count   = Math.abs(lastDay.total - notes)
 console.log(`Found ${count} modified notes for ${today.toUTCString()}.`)
 
 if (count > 0) {
-  const newEntry = { date: formatDate(today), count: count, total: notes }
+  const newEntry = { date: formatDate(today), count: count - 1, total: notes }
   data.push(newEntry)
 
   console.log("Added new daily notes record:")
