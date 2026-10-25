@@ -16,17 +16,19 @@ if(!tasksCompletedFile || !dataFile) {
 
 console.log(`Updating tasks from ${tasksCompletedFile} to data file ${dataFile}`)
 
-const rawData = JSON.parse(readFileSync(dataFile, "utf8"))
-const data = new Map(rawData.map(i => [i.date, i]))
-
-const tasks = parseInt(readFileSync(tasksCompletedFile))
+const data = JSON.parse(readFileSync(dataFile, "utf8"))
 
 const today = new Date(Date.now())
+const tasks = parseInt(readFileSync(tasksCompletedFile))
 
-const newEntry = { date: formatDate(today), count: tasks }
-data.set(formatDate(today), newEntry)
+console.log(`${tasks} completed tasks found for ${today.toUTCString()}.`)
 
-console.log("Added new daily tasks record:")
-console.log(data.get(formatDate(today)))
+if (tasks > 0) {
+  const newEntry = { date: formatDate(today), count: tasks }
+  data.push(newEntry)
 
-writeFileSync(dataFile, JSON.stringify(Array.from(data.values()), null, 2))
+  console.log("Added new daily tasks record:")
+  console.log(newEntry)
+
+  writeFileSync(dataFile, JSON.stringify(data, null, 2))
+}

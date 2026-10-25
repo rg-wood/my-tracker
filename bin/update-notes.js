@@ -16,26 +16,21 @@ if(!notesFolder || !dataFile) {
 
 console.log(`Updating notes from ${notesFolder} to data file ${dataFile}`)
 
-const rawData = JSON.parse(readFileSync(dataFile, "utf8"))
-const data = new Map(rawData.map(i => [i.date, i]))
+const data = JSON.parse(readFileSync(dataFile, "utf8"))
 
-const notes = readdirSync(notesFolder).length - 1
+const notes   = readdirSync(notesFolder).length - 1
+const today   = new Date(Date.now())
+const lastDay = data.slice(-1)[0]
+const count   = Math.abs(lastDay.total - notes)
 
-const today = new Date(Date.now())
-const yesterday = new Date(new Date(Date.now()).setDate(today.getDate() - 1))
+console.log(`Found ${count} modified notes for ${today.toUTCString()}.`)
 
-const previousDay = data.get(formatDate(yesterday))
-
-if (previousDay) {
-  const count = Math.abs(previousDay.total - notes)
+if (count > 0) {
   const newEntry = { date: formatDate(today), count: count, total: notes }
-  data.set(formatDate(today), newEntry)
-} else {
-  const newEntry = { date: formatDate(today), count: notes, total: notes }
-  data.set(formatDate(today), newEntry)
+  data.push(newEntry)
+
+  console.log("Added new daily notes record:")
+  console.log(newEntry)
+
+  writeFileSync(dataFile, JSON.stringify(data, null, 2))
 }
-
-console.log("Added new daily notes record:")
-console.log(data.get(formatDate(today)))
-
-writeFileSync(dataFile, JSON.stringify(Array.from(data.values()), null, 2))
