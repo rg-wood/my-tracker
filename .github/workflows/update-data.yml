@@ -14,6 +14,7 @@ jobs:
       OBSIDIAN_PASSWORD: ${{ secrets.OBSIDIAN_PASSWORD }}
       OBSIDIAN_EMAIL: ${{ secrets.OBSIDIAN_EMAIL }}
       REAL_NAME: ${{ secrets.REAL_NAME }}
+      TODOOIST_AUTH_TOKEN: ${{ secrets.TODOOIST_AUTH_TOKEN }}
 
     steps:
       - uses: actions/checkout@v7
