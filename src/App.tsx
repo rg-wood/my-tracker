@@ -1,14 +1,14 @@
-import HeatMap from '@uiw/react-heat-map';
-import { useEffect, useState } from 'react';
-import './App.css'
-import notes from '../data/notes.json';
-import tasks from '../data/tasks.json';
+import HeatMap from "@uiw/react-heat-map";
+import { useEffect, useState } from "react";
+import "./App.css";
+import notes from "../data/notes.json";
+import tasks from "../data/tasks.json";
 
 function App({ today }: { today: Date }) {
-  const startDate = new Date(today)
-  startDate.setMonth(startDate.getMonth() - 3)
+  const startDate = new Date(today);
+  startDate.setMonth(startDate.getMonth() - 3);
 
-  const [darkMode, setDarkMode] = useState(false)
+  const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-color-scheme: dark)");
@@ -18,7 +18,7 @@ function App({ today }: { today: Date }) {
     }
 
     mq.addEventListener("change", (evt) => setDarkMode(evt.matches));
-  }, [])
+  }, []);
 
   return (
     <>
@@ -26,11 +26,10 @@ function App({ today }: { today: Date }) {
         <h1>Notes</h1>
         <div>
           <HeatMap
-            value={ notes }
-            weekLabels={ ['', 'Mon', '', 'Wed', '', 'Fri', ''] }
-            startDate={ startDate }
-            style = { darkMode ? { color: "#ffffff" } : {} }
-
+            value={notes}
+            weekLabels={["", "Mon", "", "Wed", "", "Fri", ""]}
+            startDate={startDate}
+            style={darkMode ? { color: "#ffffff" } : {}}
           />
         </div>
       </section>
@@ -38,16 +37,15 @@ function App({ today }: { today: Date }) {
         <h1>Tasks</h1>
         <div>
           <HeatMap
-            value={ tasks }
-            weekLabels={ ['', 'Mon', '', 'Wed', '', 'Fri', ''] }
-            startDate={ startDate }
-            style = { darkMode ? { color: "#ffffff" } : {} }
-
+            value={tasks}
+            weekLabels={["", "Mon", "", "Wed", "", "Fri", ""]}
+            startDate={startDate}
+            style={darkMode ? { color: "#ffffff" } : {}}
           />
         </div>
       </section>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

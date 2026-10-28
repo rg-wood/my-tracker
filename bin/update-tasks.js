@@ -1,34 +1,32 @@
-import { readFileSync, writeFileSync } from 'fs';
+import { readFileSync, writeFileSync } from "fs";
 
 function formatDate(date) {
-  return date.toISOString()
-    .replace(/T.+/, '')
-    .replaceAll('-', '/')
+  return date.toISOString().replace(/T.+/, "").replaceAll("-", "/");
 }
 
-const tasksCompletedFile = process.argv[2]
-const dataFile = process.argv[3]
+const tasksCompletedFile = process.argv[2];
+const dataFile = process.argv[3];
 
-if(!tasksCompletedFile || !dataFile) {
-  console.error("Notes folder and target data file must be provided.")
+if (!tasksCompletedFile || !dataFile) {
+  console.error("Notes folder and target data file must be provided.");
   process.exit(1);
 }
 
-console.log(`Updating tasks from ${tasksCompletedFile} to data file ${dataFile}`)
+console.log(`Updating tasks from ${tasksCompletedFile} to data file ${dataFile}`);
 
-const data = JSON.parse(readFileSync(dataFile, "utf8"))
+const data = JSON.parse(readFileSync(dataFile, "utf8"));
 
-const today = new Date(Date.now())
-const tasks = parseInt(readFileSync(tasksCompletedFile))
+const today = new Date(Date.now());
+const tasks = parseInt(readFileSync(tasksCompletedFile));
 
-console.log(`${tasks} completed tasks found for ${today.toUTCString()}.`)
+console.log(`${tasks} completed tasks found for ${today.toUTCString()}.`);
 
 if (tasks > 0) {
-  const newEntry = { date: formatDate(today), count: tasks - 1 }
-  data.push(newEntry)
+  const newEntry = { date: formatDate(today), count: tasks - 1 };
+  data.push(newEntry);
 
-  console.log("Added new daily tasks record:")
-  console.log(newEntry)
+  console.log("Added new daily tasks record:");
+  console.log(newEntry);
 
-  writeFileSync(dataFile, JSON.stringify(data, null, 2))
+  writeFileSync(dataFile, JSON.stringify(data, null, 2));
 }
