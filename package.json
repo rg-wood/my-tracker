@@ -9,7 +9,7 @@
     "test": "oxlint",
     "update:data": "npm run update:data:notes && npm run update:data:tasks",
     "update:data:notes": "npm run update:data:notes:collect && npm run update:data:notes:update",
-    "update:data:notes:collect": "ob login --email $OBSIDIAN_EMAIL --password $OBSIDIAN_PASSWORD && ob sync-setup --vault 'Notes' --path ./tmp/vault --password $OBSIDIAN_PASSWORD && ob sync --path ./tmp/vault > /dev/null",
+    "update:data:notes:collect": "ob login --email $OBSIDIAN_EMAIL --password $OBSIDIAN_PASSWORD && ob sync-setup --vault 'Notes' --path ./tmp/vault --password $OBSIDIAN_PASSWORD && ob sync-config --path ./tmp/vault --mode mirror-remote && ob sync --path ./tmp/vault > /dev/null",
     "update:data:notes:update": "node ./bin/update-notes.js './tmp/vault/🪶 Fleeting' ./data/notes.json",
     "update:data:tasks": "npm run update:data:tasks:collect && npm run update:data:tasks:update",
     "update:data:tasks:collect": "td auth token $TODOOIST_AUTH_TOKEN; timestamp=$(date \"+%Y-%m-%d \") && td activity --since $timestamp | grep completed | grep task | wc -l > tmp/tasks-completed",
