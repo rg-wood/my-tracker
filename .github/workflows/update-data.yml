@@ -38,6 +38,9 @@ jobs:
       - name: Update tasks
         run: npm run update:data:tasks
 
+      - name: Tidy data updates
+        run: npm run test:fix
+
       - uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: "Chore: updated data"
