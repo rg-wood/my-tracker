@@ -22,8 +22,8 @@
     "react-dom": "^19.3.1"
   },
   "devDependencies": {
-    "@doist/todoist-cli": "^5.8.2",
-    "@types/node": "^26.6.5",
+    "@doist/todoist-cli": "^5.8.4",
+    "@types/node": "^26.6.6",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^6.1.2",
