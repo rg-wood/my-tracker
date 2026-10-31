@@ -1,4 +1,4 @@
-import { MyHeatMap } from "./MyHeatMap";
+import MyHeatMap from "./MyHeatMap";
 import { useEffect, useState } from "react";
 import "./App.css";
 import notes from "../data/notes.json";

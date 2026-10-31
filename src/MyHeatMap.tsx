@@ -1,6 +1,6 @@
 import HeatMap from "@uiw/react-heat-map";
 
-export function MyHeatMap({
+function MyHeatMap({
   data,
   startDate,
   darkMode,
@@ -25,3 +25,5 @@ export function MyHeatMap({
     </>
   );
 }
+
+export default MyHeatMap;
