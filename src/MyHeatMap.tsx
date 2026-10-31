@@ -11,7 +11,6 @@ export function MyHeatMap({
   darkMode: boolean;
   title: string;
 }) {
-
   return (
     <>
       <h1>{title}</h1>
@@ -25,5 +24,4 @@ export function MyHeatMap({
       </div>
     </>
   );
-
 }
