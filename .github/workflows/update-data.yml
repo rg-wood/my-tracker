@@ -2,7 +2,7 @@ name: "Update Data"
 
 on:
   schedule:
-    - cron: "0 20 * * *"
+    - cron: "11 20 * * *"
       timezone: "Europe/London"
   workflow_dispatch:
 
