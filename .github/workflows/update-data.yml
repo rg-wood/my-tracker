@@ -3,7 +3,7 @@ name: "Update Data"
 on:
   schedule:
     - cron: "11 20 * * *"
-      timezone: "Europe/London"
+      timezone: "fdskhfsdkjd/kdfhdkjfh"
   workflow_dispatch:
 
 jobs:
