@@ -10,10 +10,11 @@
     "test:fix": "oxfmt",
     "update:data": "npm run update:data:notes && npm run update:data:tasks",
     "update:data:notes": "npm run update:data:notes:collect && npm run update:data:notes:update",
-    "update:data:notes:collect": "ob login --email $OBSIDIAN_EMAIL --password $OBSIDIAN_PASSWORD && ob sync-setup --vault 'Notes' --path ./tmp/vault --password $OBSIDIAN_PASSWORD && ob sync-config --path ./tmp/vault --mode mirror-remote && ob sync --path ./tmp/vault > /dev/null",
-    "update:data:notes:update": "node ./bin/update-notes.js './tmp/vault/🪶 Fleeting' ./data/notes.json",
+    "update:data:notes:collect": "npm run obsidian:setup && ob sync --path ./tmp/vault && mkdir -p ./tmp/notes-history && touch ./tmp/notes-history/$(date \"+%Y-%m-%d\").txt && ls './tmp/vault/🪶 Fleeting' > ./tmp/notes-history/$(date \"+%Y-%m-%d\").txt",
+    "obsidian:setup": "ob login --email $OBSIDIAN_EMAIL --password $OBSIDIAN_PASSWORD && ob sync-setup --vault 'Notes' --path ./tmp/vault --password $OBSIDIAN_PASSWORD && ob sync-config --path ./tmp/vault --mode mirror-remote",
+    "update:data:notes:update": "node ./bin/update-notes.js ./tmp/notes-history ./data/notes.json",
     "update:data:tasks": "npm run update:data:tasks:collect && npm run update:data:tasks:update",
-    "update:data:tasks:collect": "mkdir -p tmp && td auth token --credential-store=plaintext $TODOOIST_AUTH_TOKEN; timestamp=$(date \"+%Y-%m-%d \") && td activity --since $timestamp | grep completed | grep task | wc -l > tmp/tasks-completed",
+    "update:data:tasks:collect": "mkdir -p tmp && td auth token --credential-store=plaintext $TODOOIST_AUTH_TOKEN; timestamp=$(date \"+%Y-%m-%d\") && td activity --since $timestamp | grep completed | grep task | wc -l > tmp/tasks-completed",
     "update:data:tasks:update": "node ./bin/update-tasks.js tmp/tasks-completed ./data/tasks.json"
   },
   "dependencies": {
@@ -27,6 +28,7 @@
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^6.3.0",
+    "diff": "^9.0.0",
     "obsidian-headless": "^0.0.14",
     "oxfmt": "^0.78.0",
     "oxlint": "^1.93.0",

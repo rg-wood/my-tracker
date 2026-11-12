@@ -1,30 +1,49 @@
-import { readdirSync, readFileSync, writeFileSync } from "fs";
+import { existsSync, readFileSync, writeFileSync } from "fs";
+import { diffLines } from "diff";
 
 function formatDate(date) {
-  return date.toISOString().replace(/T.+/, "").replaceAll("-", "/");
+  return getDate(date).replaceAll("-", "/");
 }
 
-const notesFolder = process.argv[2];
+function getDate(date) {
+  return date.toISOString().replace(/T.+/, "");
+}
+
+const notesHistoryFolder = process.argv[2];
 const dataFile = process.argv[3];
 
-if (!notesFolder || !dataFile) {
+if (!notesHistoryFolder || !dataFile) {
   console.error("Notes folder and target data file must be provided.");
   process.exit(1);
 }
 
-console.log(`Updating notes from ${notesFolder} to data file ${dataFile}`);
+console.log(`Updating notes from ${notesHistoryFolder} to data file ${dataFile}`);
 
-const data = JSON.parse(readFileSync(dataFile, "utf8"));
+const data = JSON.parse(readFileSync(dataFile));
 
-const notes = readdirSync(notesFolder).length - 1;
 const today = new Date(Date.now());
-const lastDay = data.slice(-1)[0];
-const count = Math.abs(lastDay.total - notes);
+const yesterday = new Date(Date.now() - 864e5);
+
+const yesterdaysNotes = existsSync(`./${notesHistoryFolder}/${getDate(yesterday)}.txt`)
+  ? readFileSync(`./${notesHistoryFolder}/${getDate(yesterday)}.txt`, "utf8")
+  : "";
+
+const todaysNotes = readFileSync(`./${notesHistoryFolder}/${getDate(today)}.txt`, "utf8");
+
+const diff = diffLines(todaysNotes, yesterdaysNotes);
+
+console.log("Changes in notes:");
+console.log(diff);
+
+const count = diff
+  .filter((d) => d.added || d.removed)
+  .map((d) => d.count)
+  .reduce((partialSum, a) => partialSum + a, 0);
 
 console.log(`Found ${count} modified notes for ${today.toUTCString()}.`);
 
 if (count > 0) {
-  const newEntry = { date: formatDate(today), count: count - 1, total: notes };
+  const newEntry = { date: formatDate(today), count: count - 1 };
   data.push(newEntry);
 
   console.log("Added new daily notes record:");
