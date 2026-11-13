@@ -8,7 +8,7 @@
     "build": "tsc -b && vite build",
     "test": "oxlint && oxfmt --check",
     "test:fix": "oxfmt",
-    "update:data": "npm run update:data:notes && npm run update:data:tasks && npm run update:data:posts",
+    "update:data": "npm run update:data:notes && npm run update:data:tasks && npm run update:data:posts && npm run test:fix",
     "update:data:notes": "npm run update:data:notes:collect && npm run update:data:notes:update",
     "update:data:notes:collect": "npm run obsidian:setup && ob sync --path ./tmp/vault > /dev/null && mkdir -p ./tmp/notes-history && touch ./tmp/notes-history/$(date \"+%Y-%m-%d\").txt && ls './tmp/vault/🪶 Fleeting' > ./tmp/notes-history/$(date \"+%Y-%m-%d\").txt",
     "obsidian:setup": "ob login --email $OBSIDIAN_EMAIL --password $OBSIDIAN_PASSWORD && ob sync-setup --vault 'Notes' --path ./tmp/vault --password $OBSIDIAN_PASSWORD && ob sync-config --path ./tmp/vault --mode mirror-remote",
