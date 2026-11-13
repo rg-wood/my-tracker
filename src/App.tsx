@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import notes from "../data/notes.json";
 import tasks from "../data/tasks.json";
+import posts from "../data/posts.json";
 
 function App({ today }: { today: Date }) {
   const [darkMode, setDarkMode] = useState(false);
@@ -25,6 +26,11 @@ function App({ today }: { today: Date }) {
       <section id="center">
         <div>
           <MyHeatMap title="Tasks" data={tasks} startDate={startDate} darkMode={darkMode} />
+        </div>
+      </section>
+      <section id="center">
+        <div>
+          <MyHeatMap title="Posts" data={posts} startDate={startDate} darkMode={darkMode} />
         </div>
       </section>
     </>
