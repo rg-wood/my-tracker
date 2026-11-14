@@ -41,7 +41,7 @@ const blueSkyPosts = await fetchPosts(
   today,
 );
 const mastodonPosts = await fetchPosts("https://dice.camp/@grislyeye.rss", today);
-const posts = blueSkyPosts + mastodonPosts;
+const posts = Math.ceil((blueSkyPosts + mastodonPosts) / 2);
 
 console.log(
   `${blueSkyPosts} bluesky posts and ${mastodonPosts} mastodon posts found for ${today.toUTCString()}.`,
