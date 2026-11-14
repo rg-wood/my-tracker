@@ -35,11 +35,8 @@ jobs:
       - run: echo "::add-mask::$REAL_NAME"
       - run: npm ci
 
-      - name: Update notes
-        run: npm run update:data:notes
-
-      - name: Update tasks
-        run: npm run update:data:tasks
+      - name: Update data
+        run: npm run update:data
 
       - uses: stefanzweifel/git-auto-commit-action@v7
         with:
