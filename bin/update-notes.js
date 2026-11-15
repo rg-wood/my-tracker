@@ -23,14 +23,19 @@ const data = JSON.parse(readFileSync(dataFile));
 
 const today = new Date(Date.now());
 const yesterday = new Date(Date.now() - 864e5);
+const yesterdaysNotesCache = `${notesHistoryFolder}/${getDate(yesterday)}.txt`;
 
-const yesterdaysNotes = existsSync(`./${notesHistoryFolder}/${getDate(yesterday)}.txt`)
-  ? readFileSync(`./${notesHistoryFolder}/${getDate(yesterday)}.txt`, "utf8")
+if (existsSync(yesterdaysNotesCache)) {
+  console.log(`Found yesterday's notes cache file ${yesterdaysNotesCache}`);
+}
+
+const yesterdaysNotes = existsSync(yesterdaysNotesCache)
+  ? readFileSync(yesterdaysNotesCache, "utf8")
   : "";
 
 const todaysNotes = readFileSync(`./${notesHistoryFolder}/${getDate(today)}.txt`, "utf8");
 
-const diff = diffLines(todaysNotes, yesterdaysNotes);
+const diff = diffLines(yesterdaysNotes, todaysNotes);
 
 console.log("Changes in notes:");
 console.log(diff);
