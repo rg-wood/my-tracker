@@ -30,7 +30,7 @@ jobs:
         uses: actions/cache@v6
         with:
           path: tmp/notes-history
-          key: notes-backup
+          key: notes-history
 
       - run: echo "::add-mask::$REAL_NAME"
       - run: npm ci
