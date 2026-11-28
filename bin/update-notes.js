@@ -1,54 +1,31 @@
-import { existsSync, readFileSync, writeFileSync } from "fs";
-import { diffLines } from "diff";
+import { readdirSync, readFileSync, writeFileSync } from "fs";
 
 function formatDate(date) {
-  return getDate(date).replaceAll("-", "/");
+  return date.toISOString().replace(/T.+/, "").replaceAll("-", "/");
 }
 
-function getDate(date) {
-  return date.toISOString().replace(/T.+/, "");
-}
-
-const notesHistoryFolder = process.argv[2];
+const notesFolder = process.argv[2];
 const dataFile = process.argv[3];
 
-if (!notesHistoryFolder || !dataFile) {
+if (!notesFolder || !dataFile) {
   console.error("Notes folder and target data file must be provided.");
   process.exit(1);
 }
 
-console.log(`Updating notes from ${notesHistoryFolder} to data file ${dataFile}`);
+console.log(`Updating notes from ${notesFolder} to data file ${dataFile}`);
 
-const data = JSON.parse(readFileSync(dataFile));
+const data = JSON.parse(readFileSync(dataFile, "utf8"));
 
+const notes = readdirSync(notesFolder).length - 1;
 const today = new Date(Date.now());
-const yesterday = new Date(Date.now() - 864e5);
-const yesterdaysNotesCache = `${notesHistoryFolder}/${getDate(yesterday)}.txt`;
 
-if (existsSync(yesterdaysNotesCache)) {
-  console.log(`Found yesterday's notes cache file ${yesterdaysNotesCache}`);
-}
-
-const yesterdaysNotes = existsSync(yesterdaysNotesCache)
-  ? readFileSync(yesterdaysNotesCache, "utf8")
-  : "";
-
-const todaysNotes = readFileSync(`./${notesHistoryFolder}/${getDate(today)}.txt`, "utf8");
-
-const diff = diffLines(yesterdaysNotes, todaysNotes);
-
-console.log("Changes in notes:");
-console.log(diff);
-
-const count = diff
-  .filter((d) => d.added || d.removed)
-  .map((d) => d.count)
-  .reduce((partialSum, a) => partialSum + a, 0);
+const lastDay = data.slice(-1)[0];
+const count = Math.abs(lastDay.total - notes);
 
 console.log(`Found ${count} modified notes for ${today.toUTCString()}.`);
 
 if (count > 0) {
-  const newEntry = { date: formatDate(today), count: count - 1 };
+  const newEntry = { date: formatDate(today), count: count - 1, total: notes };
   data.push(newEntry);
 
   console.log("Added new daily notes record:");

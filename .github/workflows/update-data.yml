@@ -25,19 +25,10 @@ jobs:
         with:
           path: tmp/vault
           key: notes-backup
-
-      - name: Cache notes history
-        uses: actions/cache@v6
-        with:
-          path: tmp/notes-history
-          key: notes-history
-
       - run: echo "::add-mask::$REAL_NAME"
       - run: npm ci
-
       - name: Update data
         run: npm run update:data
-
       - uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: "Chore: updated data"
