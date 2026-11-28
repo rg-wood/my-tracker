@@ -24,18 +24,18 @@
     "react-dom": "^19.3.1"
   },
   "devDependencies": {
-    "@todoist/cli": "^7.4.1",
-    "@types/node": "^26.6.10",
-    "@types/react": "^19.3.2",
+    "@todoist/cli": "^7.6.0",
+    "@types/node": "^26.6.11",
+    "@types/react": "^19.3.3",
     "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^6.3.0",
     "fast-xml-parser": "^5.12.1",
     "obsidian-headless": "^0.0.14",
     "oxfmt": "^0.80.0",
     "oxlint": "^1.95.0",
-    "oxlint-tsgolint": "^7.0.2008",
+    "oxlint-tsgolint": "^7.0.2009",
     "typescript": "~7.0.2",
-    "vite": "^8.3.8"
+    "vite": "^8.4.0"
   },
   "allowScripts": {
     "fsevents": false,
